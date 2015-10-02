@@ -6,22 +6,16 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Dnschecker;
 
 class DnsController extends Controller
 {
 
 
     public function index(){
-      $result[]='';
-      $result2[]='';
-      $result3[]='';
-      $result4[]='';
-      $result5[]='';
-      $result6[]='';
-      $result7[]='';
-
-
-      return view('dns/index',['result'=>$result, 'result2'=>$result2, 'result3'=>$result3, 'result4'=>$result4, 'result5'=>$result5, 'result6'=>$result6, 'result7'=>$result7]);
+    
+      $dns = Dnschecker::get();
+      return view('dns/index',['result' => $dns]);
     }
 
     public function show()
@@ -141,5 +135,23 @@ class DnsController extends Controller
       echo json_encode($display);
     }
 
+    public function search()
+    {
+      $domain=$_POST['url'];
+      $parametro=$_POST['type'];
+
+      $dns = Dnschecker::get();
+
+      foreach ($dns as $key => $value) {
+
+        $nslookup = ('dig '.$parametro.' '. $domain .' @'.$value->ip .' +short');
+
+        exec($nslookup, $result[$value->id]);
+
+      }
+
+      echo json_encode($result);
+
+    }
 
 }

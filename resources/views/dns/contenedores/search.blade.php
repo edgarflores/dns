@@ -1,4 +1,4 @@
-{!! Form::open(['url' => '/show', 'method'=>'get', 'class'=>'form-inline'])!!}
+{!! Form::open(['url' => '/search', 'method'=>'POST', 'class'=>'form-inline'])!!}
 <div class="form-group">
      {!! Form::text('url', null, ['class' => 'form-control', 'placeholder' => 'www.dominio.com','id'=>'url']) !!}
      {!! Form::select('type', ['A'=>'A', 'AAAA'=>'AAAA', 'CNAME'=>'CNAME', 'MX'=>'MX', 'NS'=>'NS', 'PTR'=>'PTR', 'SOA'=>'SOA', 'SRV'=>'SRV', 'TXT'=>'TXT'],null,['class'=>'form-control','id'=>'type']) !!}
