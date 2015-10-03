@@ -137,7 +137,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        // Illuminate\Html\HtmlServiceProvider::clas,
+        
 
         /*
          * Application Service Providers...

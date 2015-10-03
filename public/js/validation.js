@@ -41,7 +41,7 @@ $(document).ready(function(){
                   icon = '<span class="glyphicon glyphicon-ok"></span>';
 
                   $("#"+i).html(result);
-                  $('.status'+i).html(icon);
+                  $('#status'+i).html(icon);
                 });
                   result='';
               }else{

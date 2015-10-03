@@ -14,6 +14,7 @@
 
 Route::get('/', 'DnsController@index');
 Route::get('/show', 'DnsController@show');
+Route::get('/net', 'DnsController@net2');
 
 Route::post('/search', 'DnsController@search');
 
