@@ -14,10 +14,30 @@
 
 Route::get('/', 'DnsController@index');
 Route::get('/show', 'DnsController@show');
+Route::post('/net', 'DnsController@net2');
 Route::get('/net', 'DnsController@net2');
-
 Route::post('/search', 'DnsController@search');
+Route::get('/create', 'DnsController@create');
+Route::post('/store', 'DnsController@store');
+Route::get('/edit', 'DnsController@edit');
+Route::get('/edit/{dnslst}', 'DnsController@edit');
+Route::put('/store', 'DnsController@update');
+Route::put('/store/{dnslst}', 'DnsController@update');
+Route::delete('/destroy', 'DnsController@destroy');
+Route::delete('/destroy/{dnslst}', 'DnsController@destroy');
 
+Route::get('/findip', 'DnsController@findip');
+Route::get('/findresult', 'DnsController@findresult');
+Route::get('/findresult/{ipresult}', 'DnsController@findresult');
+
+
+
+
+Route::get('adm',
+[
+  'uses'  => 'DnsController@indexAdm',
+  'as'    =>  'Adm'
+  ]);
 
 Route::get('home',
 [
@@ -42,7 +62,10 @@ Route::post('login', [
   'as'    => 'login'
 ]);
 
-Route::get('logout', 'Auth\AuthController@getLogout');
+Route::get('logout', [
+  'uses'  =>  'Auth\AuthController@getLogout',
+  'as'    =>  'logout'
+  ]);
 
 // Registration routes...
 Route::get('register',
