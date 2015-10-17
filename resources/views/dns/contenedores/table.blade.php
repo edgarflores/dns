@@ -1,5 +1,5 @@
 @include('dns.contenedores.search')
-<table class="table table-bordered">
+<table class="table table-bordered table-condensed">
 <tbody>
   <div class="row">
   @foreach($result as $key => $dnsinfo)
@@ -11,7 +11,7 @@
     <td class="col-result col-md-8 text-right">
       <div class="result" id='{{$dnsinfo->id}}' ></div>
       <span class="msg" id='msg{{$dnsinfo->id}}'></span>
-      <span class="loading" id='msg{{$dnsinfo->id}}'></span>
+      <span class="loading" id='loading{{$dnsinfo->id}}'></span>
     </td>
     <td class="col-status col-md-4 text-right">
       <div class="status" id='status{{$dnsinfo->id}}'>

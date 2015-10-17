@@ -39,61 +39,6 @@ class DnsController extends Controller
 
     }
 
-    public function net2(){
-
-      // $domain=$_POST['url'];
-      // $parametro=$_POST['type'];
-      $domain='infranetworking.com';
-      $parametro='A';
-      $data=[];
-      $data2=[];
-      $show='';
-
-      $dns = Dnschecker::get();
-
-      foreach ($dns as $key => $value) {
-
-        $r = new \Net_DNS2_Resolver(array('nameservers' => array($value->ip)));
-
-          try
-          {
-              $result = $r->query($domain, $parametro);
-
-              foreach($result->answer as $record){
-
-                  if($parametro == 'A' || $parametro == 'AAAA'){
-                    $show=$record->address;
-                  }elseif ($parametro == 'CNAME') {
-                    $show=$record;
-                  }elseif($parametro=='MX'){
-                    $show=$record->preference.' '.$record->exchange;
-                  }elseif ($parametro == 'NS') {
-                    $show=$record->nsdname;
-                  }elseif ($parametro == 'PTR') {
-                    $show=$record;
-                  }elseif ($parametro == 'SOA') {
-                    $show=$record->mname.' '.$record->rname.' '.$record->serial.' '.$record->refresh.' '.$record->retry.' '.$record->expire.' '.$record->minimum;
-                  }elseif ($parametro == 'SRV') {
-                    $show=$record;
-                  }elseif ($parametro == 'TXT') {
-                    $show=$record->text;
-                  }
-                  // print_r($show);
-                  $data[$value->id]=$show;
-                // $data[$value->id]=$show;
-                // echo json_encode($data);
-              }//end foreach
-
-          } catch(\Net_DNS2_Exception $e){
-              $data[]= $e->getMessage();
-          }
-        $data2[$value->id]=$data;
-        $data='';
-        // echo json_encode($data2);
-      }
-      echo json_encode($data2);
-    }
-
     public function indexAdm(){
 
       $dns = Dnschecker::get();
@@ -132,7 +77,7 @@ class DnsController extends Controller
       return $message;
   	}
 
-    public function findip(){
+    public function getip(){
       $dns= Dnschecker::get();
 
       $resultip=[];
@@ -142,13 +87,13 @@ class DnsController extends Controller
       echo json_encode($resultip);
     }
 
-    public function findresult(){
+    public function getresult(){
 
       $ip=$_GET['ip'];
       $id=$_GET['id'];
       $domain=$_GET['url'];
       $parametro=$_GET['type'];
-      $data[]='';
+      $data= array();
 
 
       $r = new \Net_DNS2_Resolver(array('nameservers' => array($ip)));
@@ -176,6 +121,7 @@ class DnsController extends Controller
                 $show=$record->text;
               }
               $data[]=$show;
+            
             }
 
         } catch(\Net_DNS2_Exception $e){

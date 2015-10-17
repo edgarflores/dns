@@ -1,65 +1,5 @@
 $(document).ready(function(){
 
-  $('#buscar').unbind('click').bind('click', function(e){
-
-    var domain=$('#url').val();
-    var lst=$('#type').val();
-    var _token = $('#_token').attr('value');
-    var img = '<img src="/img/loading.gif">';
-
-    if(domain){
-      $(document).ajaxStart(function(){
-          $('.result').html('');
-          $('.status').html('');
-          $('.msg').html('');
-          $('.loading').html(img).show();
-          $('#buscar').prop('disabled',true);
-          $('.status').html('<span class="glyphicon glyphicon-record"></span>');
-       }).ajaxStop(function(){
-          $('.loading').html(img).hide();
-          $('#buscar').prop('disabled',false);
-       });
-
-        $.ajax({
-          url   : '/net',
-          type  : 'POST',
-          data  : {
-              'url'     : domain,
-              'type'    : lst,
-              '_token'  : _token
-          },
-
-          success:function(data){
-              var res =jQuery.parseJSON(data);
-              // console.log(res);
-              var result='';
-              var icon='';
-              $.each(res, function(i, val){
-                if(val.length !== 0){
-                  $.each(val, function(i2, val2){
-                    result += val2 + "<br/>";
-                    icon = '<span class="glyphicon glyphicon-ok"></span>';
-
-                    $("#"+i).html(result);
-                    $('#status'+i).html(icon);
-                  });
-                    result='';
-                }else{
-                  icon = '<span class="glyphicon glyphicon-remove"></span>';
-                  $('#msg'+i).html('No se encontraron registros');
-                  $('#status'+i).html(icon);
-                }
-              });
-          },
-
-          error:function(){
-              alert("Error al recibir la data");
-          }
-
-        });//fin ajax
-      }//fin if
-  });
-
   $('.btn-delete').click(function(e){
 
           e.preventDefault();
@@ -99,14 +39,21 @@ $(document).ready(function(){
   });
 
 
-  $('#buscar2').unbind('click').bind('click', function(e){
+  $('#buscar').unbind('click').bind('click', function(e){
 
     var domain=$('#url').val();
     var lst=$('#type').val();
     var _token = $('#_token').attr('value');
     var img = '<img src="/img/loading.gif">';
-    var iconok = '<span class="glyphicon glyphicon-ok"></span>';
-    var iconremove = '<span class="glyphicon glyphicon-remove"></span>';
+    var iconok = '<span class="glyphicon glyphicon-ok" style="color: #41ad74"></span>';
+    var iconremove = '<span class="glyphicon glyphicon-remove" style="color: #d93217"></span>';
+    var form = $('#form-getip');
+    var urlip = form.attr('action');
+    var methodip = form.attr('method');
+    var formr = $('#form-getresult');
+    var urlr = formr.attr('action');
+    var methodr = form.attr('method');
+
 
     if(domain){
       $(document).ajaxStart(function(){
@@ -122,8 +69,8 @@ $(document).ready(function(){
        });
 
         $.ajax({
-            url   : '/findip',
-            type  : 'get',
+            url   : urlip,
+            type  : methodip,
             data  : {
                 '_token'  : _token
             },
@@ -131,13 +78,11 @@ $(document).ready(function(){
             success:function(data){
 
                 var res =jQuery.parseJSON(data);
-                //  console.log(res);
                  $.each(res, function(i,val){
-                  //  console.log(val);
 
                    $.ajax({
-                     url   : '/findresult',
-                     type  : 'get',
+                     url   : urlr,
+                     type  : methodr,
                      data  : {
                         'ip'  : val,
                         'id'  : i,
@@ -146,32 +91,30 @@ $(document).ready(function(){
                      },
 
                      success:function(data){
-              // console.log(data);
-                       var res2 =jQuery.parseJSON(data);
-                      //  console.log(res2);
+
+                      var res2 =jQuery.parseJSON(data);
                       var result='';
                        $.each(res2, function(i2, val2){
-                         console.log(val2);
-                          if(val2 !== ''){
-                         $.each(val2, function(i3, val3){
-                              result += val3 + "<br/>";
-                              $('.loading').html(img).hide();
-                              $("#"+i2).html(result);
-                              $('#status'+i).html(iconok);
-                         })
-                       }
-                            // }else{
-                            //   $('#msg'+i2).html('No se encontraron registros');
-                            //   $('#status'+i2).html(iconremove);
-                            // }
+                          if(val2.length !== 0){
+                             $.each(val2, function(i3, val3){
+                                  result += val3 + "<br/>";
+                                  $("#"+i2).html(result);
+                                  $('#status'+i).html(iconok);
+                                  $('.map').html(iconok);
+                             })
+                          }else{
+                            $('#msg'+i2).html('No se encontraron registros');
+                            $('#status'+i2).html(iconremove);
+                          }
+                        $('#loading'+i2).html(img).hide();
                        });
                      },
 
                      error:function(){
-                       console.log('error');
+                       console.log('Error obteniendo datos');
                      }
 
-                   });//fin ajax dentro
+                   });//fin ajax in
 
 
                  });
@@ -180,7 +123,7 @@ $(document).ready(function(){
             },
 
             error:function(){
-                alert("Error al recibir la data");
+                console.log("Error al recibir la data");
             }
 
           });//fin ajax

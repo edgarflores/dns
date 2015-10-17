@@ -26,9 +26,9 @@ Route::put('/store/{dnslst}', 'DnsController@update');
 Route::delete('/destroy', 'DnsController@destroy');
 Route::delete('/destroy/{dnslst}', 'DnsController@destroy');
 
-Route::get('/findip', 'DnsController@findip');
-Route::get('/findresult', 'DnsController@findresult');
-Route::get('/findresult/{ipresult}', 'DnsController@findresult');
+Route::get('/getip', 'DnsController@getip');
+Route::get('/getresult', 'DnsController@getresult');
+Route::get('/getresult/{ipresult}', 'DnsController@getresult');
 
 
 
