@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Dnschecker;
+use App\Mapavector;
+use App\Marcadores;
 
 
 class DnsController extends Controller
@@ -16,7 +18,10 @@ class DnsController extends Controller
     public function index(){
 
       $dns = Dnschecker::get();
-      return view('dns/index',['result' => $dns]);
+      $mapavector=Mapavector::get();
+      $marcadores=Marcadores::get();
+
+      return view('dns/index',['result' => $dns, 'rmapa' => $mapavector, 'rmarcadores' => $marcadores]);
     }
 
 
@@ -121,7 +126,7 @@ class DnsController extends Controller
                 $show=$record->text;
               }
               $data[]=$show;
-            
+
             }
 
         } catch(\Net_DNS2_Exception $e){

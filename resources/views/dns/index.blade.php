@@ -9,3 +9,7 @@
   {!! Form::open(['url' => ['/getresult'], 'method'=>'GET', 'id'=>'form-getresult']) !!}
   {!! Form::close() !!}
 @stop
+
+@section('map')
+  @include('dns.contenedormapa.contentmap')
+@stop

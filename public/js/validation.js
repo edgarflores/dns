@@ -100,7 +100,7 @@ $(document).ready(function(){
                                   result += val3 + "<br/>";
                                   $("#"+i2).html(result);
                                   $('#status'+i).html(iconok);
-                                  $('.map').html(iconok);
+                                  $(".marcador"+i2).attr({'fill':'#41ad74'});
                              })
                           }else{
                             $('#msg'+i2).html('No se encontraron registros');
@@ -130,5 +130,7 @@ $(document).ready(function(){
         }//fin if
 
   });
+
+
 
 });

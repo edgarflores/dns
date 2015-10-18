@@ -33,6 +33,7 @@ Route::get('/getresult/{ipresult}', 'DnsController@getresult');
 
 
 
+
 Route::get('adm',
 [
   'uses'  => 'DnsController@indexAdm',
