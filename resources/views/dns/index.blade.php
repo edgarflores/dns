@@ -8,6 +8,9 @@
 
   {!! Form::open(['url' => ['/getresult'], 'method'=>'GET', 'id'=>'form-getresult']) !!}
   {!! Form::close() !!}
+
+  {!! Form::open(['url' => ['/getmarker'], 'method'=>'get', 'id'=>'form-getmarker']) !!}
+  {!! Form::close() !!}
 @stop
 
 @section('map')

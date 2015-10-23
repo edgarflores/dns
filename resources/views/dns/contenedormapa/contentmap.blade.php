@@ -1,4 +1,4 @@
-<div class="jvectormap-container" style="background-color: rgb(238, 238, 238);">
+<!-- <div class="jvectormap-container" style="background-color: rgb(238, 238, 238);">
   <svg width="631" height="468">
     <defs></defs>
     <g transform="scale(0.7011111111111111) translate(0, 113.40278757563556)">
@@ -12,4 +12,5 @@
       @endforeach
     </g><g></g>
   </svg>
-</div>
+</div> -->
+<div id="world-map" style="width: 600px; height: 400px"></div>

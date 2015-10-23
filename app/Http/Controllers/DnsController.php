@@ -137,4 +137,20 @@ class DnsController extends Controller
         echo json_encode($data2);
     }
 
+    public function getmarker(){
+
+      $marcadores=Marcadores::get();
+
+      $long=[];
+      $lat=[];
+      foreach ($marcadores as $key => $value) {
+
+        $lat[$value->coordx] = $value->coordy;
+      }
+      $resultado = [$lat];
+
+
+      echo json_encode($resultado);
+    }
+
 }

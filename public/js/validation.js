@@ -131,6 +131,58 @@ $(document).ready(function(){
 
   });
 
+  var formmk =  $('#form-getmarker');
+  var url = formmk.attr('action');
+  var methodmk = formmk.attr('method');
 
+  console.log(url +' - '+ methodmk);
+
+  $.ajax({
+    url   : url,
+    type  : methodmk,
+    data  : ' ',
+
+    success:function(data){
+      // console.log(data);
+      var marcadores = jQuery.parseJSON(data);
+      var res1='';
+      var res2='';
+      // console.log(marcadores);
+
+      $('#world-map').vectorMap({
+        map: 'world_mill',
+        scaleColors: ['#C8EEFF', '#0071A4'],
+        normalizeFunction: 'polynomial',
+        hoverOpacity: 0.7,
+        hoverColor: false,
+        markerStyle: {
+          initial: {
+            fill: '#F8E23B',
+            stroke: '#383f47'
+          }
+        },
+        backgroundColor: '#383f47',
+        markers: [
+
+          $.each(marcadores, function(imar, vmar){
+            $.each(vmar, function(imar2, vmar2){
+              // console.log(imar2+' '+vmar2);
+              res1 += imar2;
+              res2 += vmar2;
+            });
+          }),
+          console.log(res1),
+          {latLng: [res1, res2], name: 'Vatican City'},
+          {latLng: [25.77, -80.17], name: 'Monaco'},
+
+        ]
+        });
+    },
+
+    error:function(){
+      console.log('no trajo datos');
+    }
+
+  });
 
 });

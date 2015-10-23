@@ -29,6 +29,8 @@ Route::delete('/destroy/{dnslst}', 'DnsController@destroy');
 Route::get('/getip', 'DnsController@getip');
 Route::get('/getresult', 'DnsController@getresult');
 Route::get('/getresult/{ipresult}', 'DnsController@getresult');
+Route::post('/getmarker', 'DnsController@getmarker');
+Route::get('/getmarker', 'DnsController@getmarker');
 
 
 
