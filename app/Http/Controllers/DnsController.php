@@ -57,6 +57,7 @@ class DnsController extends Controller
 
     public function store(Requests\CreateDnsRequest $request){
       Dnschecker::create($request->all());
+      Marcadores->save();
   		return redirect('/adm');
     }
 
@@ -140,17 +141,28 @@ class DnsController extends Controller
     public function getmarker(){
 
       $marcadores=Marcadores::get();
-
-      $long=[];
       $lat=[];
-      foreach ($marcadores as $key => $value) {
 
+      foreach ($marcadores as $key => $value) {
         $lat[$value->coordx] = $value->coordy;
       }
       $resultado = [$lat];
 
-
-      echo json_encode($resultado);
+      echo json_encode($lat);
     }
+
+    public function getlatitude(){
+
+      $dnsid=Dnschecker::select('id')->with('position')->get();
+      dd($dnsid);
+      // foreach ($dnsid as $key => $value) {
+      //   $position = Dnschecker::find()->position();
+      //   # code...
+      // }
+
+
+      dd($position);
+    }
+
 
 }

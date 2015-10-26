@@ -17,11 +17,11 @@
         <div class="row">
           <div class="col-md-6">
             {!! Form::label('coordx', 'Longitud') !!}
-            {!! Form::text('coordx', null, ['class' => 'form-control', 'placeholder' => 'Ej: 25.32']) !!}
+            {!! Form::text('coordx', null, ['class' => 'form-control', 'placeholder' => 'Ej: 00.00000']) !!}
           </div>
           <div class="col-md-6">
             {!! Form::label('coordy', 'Latitud') !!}
-            {!! Form::text('coordy', null, ['class' => 'form-control', 'placeholder' => 'Ej: -25.32']) !!}
+            {!! Form::text('coordy', null, ['class' => 'form-control', 'placeholder' => 'Ej: -00.00000']) !!}
           </div>
         </div><br>
 

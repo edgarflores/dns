@@ -31,6 +31,7 @@ Route::get('/getresult', 'DnsController@getresult');
 Route::get('/getresult/{ipresult}', 'DnsController@getresult');
 Route::post('/getmarker', 'DnsController@getmarker');
 Route::get('/getmarker', 'DnsController@getmarker');
+Route::get('/getlatitude', 'DnsController@getlatitude');
 
 
 

@@ -134,6 +134,7 @@ $(document).ready(function(){
   var formmk =  $('#form-getmarker');
   var url = formmk.attr('action');
   var methodmk = formmk.attr('method');
+  var latLng='latLng: ';
 
   console.log(url +' - '+ methodmk);
 
@@ -145,9 +146,20 @@ $(document).ready(function(){
     success:function(data){
       // console.log(data);
       var marcadores = jQuery.parseJSON(data);
-      var res1='';
-      var res2='';
+      var markers=[];
       // console.log(marcadores);
+          $.each(marcadores, function(imar, vmar){
+              var pointall={};
+               var point=[];
+              // console.log(imar +','+vmar);
+              point.push(imar);
+              point.push(vmar);
+              pointall.name='Venezuela2';
+              pointall.latLng=point;
+              markers.push(pointall);
+
+          }),
+            console.log(markers);
 
       $('#world-map').vectorMap({
         map: 'world_mill',
@@ -162,20 +174,7 @@ $(document).ready(function(){
           }
         },
         backgroundColor: '#383f47',
-        markers: [
-
-          $.each(marcadores, function(imar, vmar){
-            $.each(vmar, function(imar2, vmar2){
-              // console.log(imar2+' '+vmar2);
-              res1 += imar2;
-              res2 += vmar2;
-            });
-          }),
-          console.log(res1),
-          {latLng: [res1, res2], name: 'Vatican City'},
-          {latLng: [25.77, -80.17], name: 'Monaco'},
-
-        ]
+         markers:markers,
         });
     },
 
@@ -184,5 +183,6 @@ $(document).ready(function(){
     }
 
   });
+
 
 });
