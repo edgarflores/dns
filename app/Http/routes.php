@@ -12,11 +12,24 @@
 */
 
 
+
 Route::get('/', 'DnsController@index');
 Route::get('/show', 'DnsController@show');
 Route::post('/net', 'DnsController@net2');
 Route::get('/net', 'DnsController@net2');
 Route::post('/search', 'DnsController@search');
+
+Route::get('/getip', 'DnsController@getip');
+Route::get('/getresult', 'DnsController@getresult');
+Route::get('/getresult/{ipresult}', 'DnsController@getresult');
+Route::post('/getmarker', 'DnsController@getmarker');
+Route::get('/getmarker', 'DnsController@getmarker');
+Route::get('/getlatitude', 'DnsController@getlatitude');
+
+/*
+*Necesatio autenticacion 
+*/
+Route::group(['middleware' => 'auth'], function(){
 Route::get('/create', 'DnsController@create');
 Route::post('/store', 'DnsController@store');
 Route::get('/edit', 'DnsController@edit');
@@ -26,28 +39,19 @@ Route::put('/store/{dnslst}', 'DnsController@update');
 Route::delete('/destroy', 'DnsController@destroy');
 Route::delete('/destroy/{dnslst}', 'DnsController@destroy');
 
-Route::get('/getip', 'DnsController@getip');
-Route::get('/getresult', 'DnsController@getresult');
-Route::get('/getresult/{ipresult}', 'DnsController@getresult');
-Route::post('/getmarker', 'DnsController@getmarker');
-Route::get('/getmarker', 'DnsController@getmarker');
-Route::get('/getlatitude', 'DnsController@getlatitude');
+  Route::get('adm',
+  [
+    'uses'  => 'DnsController@indexAdm',
+    'as'    =>  'Adm'
+    ]);
 
-
-
-
-
-Route::get('adm',
-[
-  'uses'  => 'DnsController@indexAdm',
-  'as'    =>  'Adm'
+  Route::get('home',
+  [
+    'uses'  =>  'HomeController@index',
+    'as'    =>  'home'
   ]);
+});
 
-Route::get('home',
-[
-  'uses'  =>  'HomeController@index',
-  'as'    =>  'home'
-]);
 
 
 /*

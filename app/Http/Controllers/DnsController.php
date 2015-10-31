@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Session;
 use App\Dnschecker;
 use App\Mapavector;
 use App\Marcadores;
+use Carbon\Carbon;
 
 
 class DnsController extends Controller
@@ -56,13 +57,11 @@ class DnsController extends Controller
     }
 
     public function store(Requests\CreateDnsRequest $request){
-      Dnschecker::create($request->all());
-      Marcadores->save();
-  		return redirect('/adm');
+        Dnschecker::create($request->all());
+        return redirect('/adm');
     }
 
     public function edit($id){
-
       $dns = Dnschecker::findOrFail($id);
       return view('dns/edit', ['result' => $dns]);
     }
@@ -140,29 +139,14 @@ class DnsController extends Controller
 
     public function getmarker(){
 
-      $marcadores=Marcadores::get();
+      $marcadores=Dnschecker::get();
       $lat=[];
 
-      foreach ($marcadores as $key => $value) {
-        $lat[$value->coordx] = $value->coordy;
+      foreach ($marcadores as $value) {
+        $lat[] = array('coordx' => $value->coordx, 'coordy' => $value->coordy, 'company' => $value->company);
       }
-      $resultado = [$lat];
 
       echo json_encode($lat);
     }
-
-    public function getlatitude(){
-
-      $dnsid=Dnschecker::select('id')->with('position')->get();
-      dd($dnsid);
-      // foreach ($dnsid as $key => $value) {
-      //   $position = Dnschecker::find()->position();
-      //   # code...
-      // }
-
-
-      dd($position);
-    }
-
 
 }

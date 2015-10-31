@@ -26,7 +26,9 @@ class EditDnsRequest extends Request
         return [
           'company' =>  'required',
           'ip'      =>  'required|ip',
-          'country' =>  'required'
+          'country' =>  'required',
+          'coordx'  =>  'required',
+          'coordy'  =>  'required'
         ];
     }
 }

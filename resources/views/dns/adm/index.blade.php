@@ -12,6 +12,8 @@
               <td><strong>Proveedor de Serv. DNS</strong></td>
               <td><strong>Ip</strong></td>
               <td><strong>Estado / Pais</strong></td>
+							<td><strong>Longitud</strong></td>
+							<td><strong>Latitud</strong></td>
 							<td><strong>Opciones</strong></td>
 					  </tr>
 					  </thead>
@@ -22,6 +24,8 @@
                 <td>{{$dnslst->company}}</td>
                 <td>{{$dnslst->ip}}</td>
                 <td>{{$dnslst->country}}</td>
+								<td>{{$dnslst->coordx}}</td>
+                <td>{{$dnslst->coordy}}</td>
 								<td class="text-center">
 										<a href="{{ url('/edit',$dnslst) }}" ><span class="glyphicon glyphicon-edit" aria-hidden="true" title="Editar"></a>
 										<a href="#!" class="btn-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar" style="color: #d93217"></a>

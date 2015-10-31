@@ -20,9 +20,9 @@ $(document).ready(function(){
                 className: "btn-primary",
                 callback: function() {
                   row.fadeOut();
-                  // console.log(url+' '+data);
+
                   $.post(url,data, function(result){
-                    //  console.log(result);
+
                     $('.message').html('<p class="alert alert-success">'+result+'</p>').fadeIn().fadeOut(2000, function(){});
                   });
                 }
@@ -114,7 +114,7 @@ $(document).ready(function(){
                        console.log('Error obteniendo datos');
                      }
 
-                   });//fin ajax in
+                   });
 
 
                  });
@@ -126,8 +126,8 @@ $(document).ready(function(){
                 console.log("Error al recibir la data");
             }
 
-          });//fin ajax
-        }//fin if
+          });
+        }
 
   });
 
@@ -136,30 +136,26 @@ $(document).ready(function(){
   var methodmk = formmk.attr('method');
   var latLng='latLng: ';
 
-  console.log(url +' - '+ methodmk);
-
   $.ajax({
     url   : url,
     type  : methodmk,
     data  : ' ',
 
     success:function(data){
-      // console.log(data);
+
       var marcadores = jQuery.parseJSON(data);
       var markers=[];
-      // console.log(marcadores);
-          $.each(marcadores, function(imar, vmar){
-              var pointall={};
-               var point=[];
-              // console.log(imar +','+vmar);
-              point.push(imar);
-              point.push(vmar);
-              pointall.name='Venezuela2';
-              pointall.latLng=point;
-              markers.push(pointall);
 
-          }),
-            console.log(markers);
+      $.each(marcadores, function(imar, vmar){
+          var pointall={};
+          var point=[];
+
+          point.push(vmar.coordx);
+          point.push(vmar.coordy);
+          pointall.name=vmar.company;
+          pointall.latLng=point;
+          markers.push(pointall);
+        }),
 
       $('#world-map').vectorMap({
         map: 'world_mill',
@@ -173,7 +169,7 @@ $(document).ready(function(){
             stroke: '#383f47'
           }
         },
-        backgroundColor: '#383f47',
+        backgroundColor: '#323f59',
          markers:markers,
         });
     },
