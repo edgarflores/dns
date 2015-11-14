@@ -27,7 +27,7 @@ Route::get('/getmarker', 'DnsController@getmarker');
 Route::get('/getlatitude', 'DnsController@getlatitude');
 
 /*
-*Necesatio autenticacion 
+*Necesatio autenticacion
 */
 Route::group(['middleware' => 'auth'], function(){
 Route::get('/create', 'DnsController@create');

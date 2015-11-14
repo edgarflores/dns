@@ -19,10 +19,7 @@ class DnsController extends Controller
     public function index(){
 
       $dns = Dnschecker::get();
-      $mapavector=Mapavector::get();
-      $marcadores=Marcadores::get();
-
-      return view('dns/index',['result' => $dns, 'rmapa' => $mapavector, 'rmarcadores' => $marcadores]);
+      return view('dns/index',['result' => $dns]);
     }
 
 
@@ -87,7 +84,7 @@ class DnsController extends Controller
 
       $resultip=[];
       foreach ($dns as $key => $value) {
-        $resultip[$value->id]=$value->ip;
+        $resultip[]=['count'=>$key,'id'=>$value->id,'ip'=>$value->ip];
       }
       echo json_encode($resultip);
     }
@@ -98,9 +95,7 @@ class DnsController extends Controller
       $id=$_GET['id'];
       $domain=$_GET['url'];
       $parametro=$_GET['type'];
-      $data= array();
-
-
+      $data=array();
       $r = new \Net_DNS2_Resolver(array('nameservers' => array($ip)));
 
         try
@@ -108,6 +103,7 @@ class DnsController extends Controller
             $result = $r->query($domain, $parametro);
 
             foreach($result->answer as $record){
+
               if($parametro == 'A' || $parametro == 'AAAA'){
                 $show=$record->address;
               }elseif ($parametro == 'CNAME') {
@@ -125,12 +121,18 @@ class DnsController extends Controller
               }elseif ($parametro == 'TXT') {
                 $show=$record->text;
               }
-              $data[]=$show;
+              if($show){
+                $data[]=$show;
+              }else {
+                $data[]=0;
+              }
 
             }
 
         } catch(\Net_DNS2_Exception $e){
-            $data[]= $e->getMessage();
+            if ($e->getMessage()) {
+              $data[]= 'error';
+            }
         }
         $data2[$id]=$data;
 

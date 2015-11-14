@@ -1,9 +1,9 @@
 @include('dns.contenedores.search')
-<table class="table table-bordered table-condensed">
+<table class="table table-bordered table-condensed" id='main'>
 <tbody>
   <div class="row">
   @foreach($result as $key => $dnsinfo)
-  <tr  data-nombre="{{$dnsinfo->company}}">
+  <tr  data-id='{{$dnsinfo->id}}' data-company = "{{$dnsinfo->company}}" data-coordx = "{{$dnsinfo->coordx}}" data-coordy = "{{$dnsinfo->coordy}}" data-location = "{{$dnsinfo->country}}">
     <td class="col-server col-md-8">
         <div class="location">{{$dnsinfo->country}}</div>
         <div class="provider">{{$dnsinfo->company}}</div>

@@ -3,7 +3,7 @@
 @section('body-content')
 	<p class="message"></p>
 			<div class="panel panel-default">
-				<div class="panel-heading">Listado de DNS's publicos <a href='/create' class="navbar-right"> <span class="glyphicon glyphicon-plus-sign"></span></a></div>
+				<div class="panel-heading">Listado de DNS's publicos <a href='/create' class="navbar-right" style="padding-right:10px" title='Ingresar nuevo registro'> <span class="glyphicon glyphicon-plus-sign"></span></a>&nbsp;</div>
 				<div class="panel-body">
 					<table class="table table-hover">
 					  <thead class="text-center">
